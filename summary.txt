@@ -1,1 +1,6 @@
-哈哈哈哈   
+1、只引用了官网下载的react.js和react-dom.js，页面不显示；
+	解决方法：引用CDN的browser.js( <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>)
+2、页面空白，控制台报错：
+	Uncaught TypeError: Cannot read property '__SECRET_DOM_DO_NOT_USE_OR_YOU_WILL_BE_FIRED' of undefined
+	Uncaught ReferenceError: ReactDOM is not defined
+	解决办法：主要是js的引用顺序导致报错，js引用顺序为react.js，react-dom.js，browser.js
