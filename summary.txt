@@ -4,3 +4,14 @@
 	Uncaught TypeError: Cannot read property '__SECRET_DOM_DO_NOT_USE_OR_YOU_WILL_BE_FIRED' of undefined
 	Uncaught ReferenceError: ReactDOM is not defined
 	解决办法：主要是js的引用顺序导致报错，js引用顺序为react.js，react-dom.js，browser.js
+3、 控制台警告 Resource interpreted as Script but transferred with MIME type text/plain 
+	解决办法：WIN+R 打开运行框，输入“regedit”进入注册表，在“计算机/HKEY_CLASSES_ROOT/.js”目录下找到Content Type键，将其值改为“text/javascript"。
+4、在react中class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字
+5、<div  className='react'>
+            {
+                letterArr.map(function (word) {
+                return <div key={word}>This is letter {word}!</div>;
+                })
+            }
+        </div>,
+		以上写法不能在return之后添加“；”，否则会报错

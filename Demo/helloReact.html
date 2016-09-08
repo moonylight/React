@@ -1,11 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="../react-15.3.1/build/react-dom.min.js"></script>
-    <script src="../react-15.3.1/build/react.min.js"></script>
-    <title></title>
+    <meta charset="utf-8" />
+    <script src="../react-15.3.1/build/react.js"></script>
+    <script src="../react-15.3.1/build/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <title>helloReact</title>
+    <style>
+        .react{
+            color: red;
+        }
+    </style>
 </head>
 <body>
+    <div id="welcome"></div>
+    <div>注意：功能js的script标签的type属性为text/babel，凡是使用 JSX 的地方，都要加上 type="text/babel"。</div>
+    <br><br>
+    <div>JSX语法演示（使用数组）</div>
+    <div id="JSXGrammarByArray"></div><br><br><br>
+    <div>JSX 的基本语法规则：遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析<br>
+        JSX 允许直接在模板插入 JavaScript 变量。如果这个变量是一个数组，则会展开这个数组的所有成员
+    </div>
+    <div id="arrDIV"></div><br><br><br>
+    <h1>React.createClass</h1>
+    <div>React 允许将代码封装成组件（component），然后像插入普通 HTML 标签一样，在网页中插入这个组件。React.createClass 方法就用于生成一个组件类，所有组件类都必须有自己的 render 方法，用于输出组件</div>
+    <div>注意：组件类的第一个字母必须大写，组件类只能包含一个顶层标签，二者条件必须同时满足，缺其一都会报错<br>
+        添加组件属性，有一个地方需要注意，就是 class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字
+    </div>
+    <div id="componentHello"></div><br><br><br>
+    <h1>this.props.children</h1>
+    <div>this.props 对象的属性与组件的属性一一对应，但是有一个例外，就是 this.props.children 属性。它表示组件的所有子节点</div>
+    <div id="props-children"></div>
+    <script type="text/babel">
+        ReactDOM.render(
+            <h1 className='react'>hello,React！</h1>,
+            document.getElementById('welcome')
+        );
 
+        var letterArr= ["a", "b", "c"];
+        ReactDOM.render(
+            <div  className='react'>
+                {
+                    letterArr.map(function (word) {
+                    return <div key={word}>This is letter {word}!</div>;
+                    })
+                }
+            </div>,
+            document.getElementById('JSXGrammarByArray')
+        );
+
+        var nodeArr= [<h1 key="1">数组元素1</h1>,
+                        <h2 key="2">数组元素2</h2>,
+                        <h3 key="3">数组元素3</h3>];
+        ReactDOM.render(
+            <div className='react'>{nodeArr}</div>,
+            document.getElementById('arrDIV')
+        );
+
+        var HelloReact=React.createClass({
+            render: function () {
+                return <div className='react'>Hello, React！My name is {this.props.name}</div>;
+            }
+        });
+        ReactDOM.render(
+            <HelloReact name='wangning'/>,
+            document.getElementById('componentHello')
+        );
+
+        var NoteList= React.createClass({
+            render: function () {
+                return (
+                    <ul className='react'>
+                        {
+                            this.props.children.map(function (child) {
+                                <li>{child}</li>
+                            })
+                        }
+                    </ul>
+                );
+            }
+        });
+        ReactDOM.render(
+            <NoteList>
+                <span>book</span>
+                <span>pen</span>
+            </NoteList>,
+            document.getElementById("props-children")
+        );
+
+    </script>
 </body>
 </html>
