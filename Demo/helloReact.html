@@ -30,7 +30,9 @@
     <div id="componentHello"></div><br><br><br>
     <h1>this.props.children</h1>
     <div>this.props 对象的属性与组件的属性一一对应，但是有一个例外，就是 this.props.children 属性。它表示组件的所有子节点</div>
-    <div id="props-children"></div>
+    <div id="props-children"></div><br><br><br>
+    <h1>getDefaultProps &nbsp;设置组件属性的默认值</h1>
+    <div id="get-Default-Props"></div>
     <script type="text/babel">
         ReactDOM.render(
             <h1 className='react'>hello,React！</h1>,
@@ -49,6 +51,7 @@
             document.getElementById('JSXGrammarByArray')
         );
 
+        //数组
         var nodeArr= [<h1 key="1">数组元素1</h1>,
                         <h2 key="2">数组元素2</h2>,
                         <h3 key="3">数组元素3</h3>];
@@ -57,6 +60,7 @@
             document.getElementById('arrDIV')
         );
 
+        //组件
         var HelloReact=React.createClass({
             render: function () {
                 return <div className='react'>Hello, React！My name is {this.props.name}</div>;
@@ -67,27 +71,44 @@
             document.getElementById('componentHello')
         );
 
-        var NoteList= React.createClass({
-            render: function () {
+        //this.props.children属性
+        var NotesList = React.createClass({
+            render: function() {
+                var i= 0;
                 return (
-                    <ul className='react'>
-                        {
-                            this.props.children.map(function (child) {
-                                <li>{child}</li>
-                            })
-                        }
-                    </ul>
+                    <ol>
+                    {
+                        this.props.children.map( function (child) {
+                            return <li key= {i++}>{child}</li>;
+                        })
+                    }
+                    </ol>
                 );
             }
         });
         ReactDOM.render(
-            <NoteList>
-                <span>book</span>
-                <span>pen</span>
-            </NoteList>,
-            document.getElementById("props-children")
+            <NotesList>
+                <span>hello</span>
+                <span>world</span>
+            </NotesList>,
+            document.getElementById('props-children')
         );
 
+        //设置组件属性默认值
+        var DefaultProps= React.createClass({
+            getDefaultProps: function() {
+                return {
+                    title: "Hello React"
+                };
+            },
+            render: function() {
+                return <h1 className="react">{this.props.title}</h1>;
+            }
+        });
+        ReactDOM.render(
+            <DefaultProps></DefaultProps>,
+            document.getElementById("get-Default-Props")
+        )
     </script>
 </body>
 </html>
